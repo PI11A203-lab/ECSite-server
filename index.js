@@ -16,6 +16,7 @@ const server = http.createServer(function (req, res) {
       ]);
       res.end(products);
     } else if (method === "POST") {
+      res.end("생성되었습니다!");
     }
   }
 
