@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const models = require("./models");
 const port = 8081;
 
 app.use(express.json());
@@ -46,9 +47,19 @@ app.post("/products", (req, res) => {
 app.get("/products/:id", (req, res) => {
   const params = req.params;
   const { id } = params;
-  res.send(`id는 ${id} 입니다.`);
+  res.send(`idは${id}です。`);
 });
 
 app.listen(port, () => {
   console.log("サーバーが稼働しています。");
+  models.sequelize
+    .sync()
+    .then(() => {
+      console.log("DB連結成功");
+    })
+    .catch((err) => {
+      console.error(err);
+      console.log("DB連結失敗");
+      process.exit();
+    });
 });
