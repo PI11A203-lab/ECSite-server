@@ -8,9 +8,9 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/products", (req, res) => {
-  //models.Product.finedall 단독사용안하는 이유 : 데이터 노출, 보안위험, 필요없는 데이터 수신으로 인한 트래픽 낭비
+  //models.Product.findAll 단독사용안하는 이유 : 데이터 노출, 보안위험, 필요없는 데이터 수신으로 인한 트래픽 낭비
   //로직을 나누는 이유 : 상품 표시 페이지에 쓸모없는 데이터 노출을 줄이기 위해서
-  //models.Product.finedall単独使用しない理由:データ露出、セキュリティリスク、不要なデータ受信によるトラフィック浪費
+  //models.Product.findAll単独使用しない理由:データ露出、セキュリティリスク、不要なデータ受信によるトラフィック浪費
   //ロジックを分ける理由 : 商品表示ページに無駄なデータ露出を減らすため
   models.Product.findAll({
     order: [["createdAt", "DESC"]],
