@@ -14,7 +14,7 @@ app.get("/products", (req, res) => {
   //ロジックを分ける理由 : 商品表示ページに無駄なデータ露出を減らすため
   models.Product.findAll({
     order: [["createdAt", "DESC"]],
-    attributes: ["id", "name", "price", "createdAt", "seller"],
+    attributes: ["id", "name", "price", "createdAt", "seller", "imageUrl"],
   })
     .then((result) => {
       console.log("PRODUCTS : ", result);
