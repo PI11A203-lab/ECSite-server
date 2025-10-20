@@ -17,6 +17,7 @@ const port = 8081;
 
 app.use(express.json());
 app.use(cors());
+app.use("/uploads", express.static("uploads"));
 
 app.get("/products", (req, res) => {
   //models.Product.findAll 단독사용안하는 이유 : 데이터 노출, 보안위험, 필요없는 데이터 수신으로 인한 트래픽 낭비
