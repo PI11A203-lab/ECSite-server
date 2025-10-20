@@ -36,22 +36,23 @@ app.get("/products", (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-      res.send("エラー発生");
+      res.status(400).send("エラー発生");
     });
 });
 
 app.post("/products", (req, res) => {
   const body = req.body;
-  const { name, description, price, seller } = body;
+  const { name, description, price, seller, imageUrl } = body;
   //エラー発生防止防御コード作成
-  if (!name || !description || !price || !seller) {
-    res.send("すべてのフィールドに入力してください。");
+  if (!name || !description || !price || !seller || !imageUrl) {
+    res.status(400).send("すべてのフィールドに入力してください。");
   }
   models.Product.create({
     name,
     description,
     price,
     seller,
+    imageUrl,
   })
     .then((result) => {
       console.log("商品の生成結果 : ", result);
@@ -61,7 +62,7 @@ app.post("/products", (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-      res.send("商品のアップロードに問題が発生しました。");
+      res.status(400).send("商品のアップロードに問題が発生しました。");
     });
 });
 
@@ -79,7 +80,7 @@ app.get("/products/:id", (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-      res.send("商品照会にエラーが発生しました。");
+      res.status(400).send("商品照会にエラーが発生しました。");
     });
 });
 
