@@ -19,6 +19,19 @@ app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static("uploads"));
 
+app.get("/banners", (req, res) => {
+  models.Banner.findAll({
+    limit: 2,
+  })
+    .then((result) => {
+      res.send({ banners: result });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("エラー発生");
+    });
+});
+
 app.get("/products", (req, res) => {
   //models.Product.findAll 단독사용안하는 이유 : 데이터 노출, 보안위험, 필요없는 데이터 수신으로 인한 트래픽 낭비
   //로직을 나누는 이유 : 상품 표시 페이지에 쓸모없는 데이터 노출을 줄이기 위해서
@@ -26,7 +39,15 @@ app.get("/products", (req, res) => {
   //ロジックを分ける理由 : 商品表示ページに無駄なデータ露出を減らすため
   models.Product.findAll({
     order: [["createdAt", "DESC"]],
-    attributes: ["id", "name", "price", "createdAt", "seller", "imageUrl"],
+    attributes: [
+      "id",
+      "name",
+      "price",
+      "createdAt",
+      "seller",
+      "imageUrl",
+      "soldout",
+    ],
   })
     .then((result) => {
       console.log("PRODUCTS : ", result);
@@ -81,6 +102,27 @@ app.get("/products/:id", (req, res) => {
     .catch((error) => {
       console.error(error);
       res.status(400).send("商品照会にエラーが発生しました。");
+    });
+});
+
+app.post("/purchase/:id", (req, res) => {
+  const { id } = req.params;
+  models.Product.update(
+    { soldout: 1 },
+    {
+      where: {
+        id,
+      },
+    }
+  )
+    .then((result) => {
+      res.send({
+        result: true,
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("購入処理にエラーが発生しました。");
     });
 });
 
