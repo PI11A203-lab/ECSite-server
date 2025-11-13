@@ -1,4 +1,4 @@
-const models = require("../../models");
+const models = require("../../db/initializer");
 
 exports.findAllProducts = async () => {
     return await models.Product.findAll({

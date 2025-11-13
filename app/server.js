@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const models = require("../models");
+const models = require("../db/initializer");
 const registerRoutes = require("./routes"); // routesまとめ役
 
 const app = express();

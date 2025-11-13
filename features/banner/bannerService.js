@@ -1,4 +1,4 @@
-const models = require("../../models");
+const models = require("../../db/initializer");
 
 exports.findAllBanners = async (limit = 2) => {
     return await models.Banner.findAll({

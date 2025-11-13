@@ -1,4 +1,4 @@
-const models = require("../../models");
+const models = require("../../db/initializer");
 
 exports.purchaseProduct = async (id) => {
     // 商品が存在するか確認
