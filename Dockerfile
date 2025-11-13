@@ -41,4 +41,4 @@ VOLUME /data
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 8081
 ENV DATABASE_URL="file:///data/sqlite.db"
-CMD [ "node", "index.js" ]
+CMD [ "node", "app/server.js" ]
