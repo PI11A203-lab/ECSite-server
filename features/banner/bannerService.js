@@ -7,6 +7,6 @@ exports.findAllBanners = async (limit = 2) => {
     });
 };
 
-exports.createBanner = async ({ imageUrl, link, altText }) => {
-    return await models.Banner.create({ imageUrl, link, altText });
+exports.createBanner = async ({ imageUrl, href}) => {
+    return await models.Banner.create({ imageUrl, href });
 };

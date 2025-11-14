@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const multer = require("multer");
 const path = require("path");
 const models = require("../db/initializer");
 const registerRoutes = require("./routes"); // routesまとめ役
@@ -11,8 +12,21 @@ const PORT = 8081;
 app.use(express.json());
 app.use(cors());
 
-// アップロード静的フォルダ
+// uploadsフォルダを静的公開
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
+// Multer設定
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, path.join(__dirname, "../uploads")); // ← ここを修正
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now() + "-" + file.originalname);
+        },
+    }),
+});
+
 
 // 全ルート登録
 registerRoutes(app);
