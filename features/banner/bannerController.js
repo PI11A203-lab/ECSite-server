@@ -11,13 +11,15 @@ exports.getBanners = async (req, res) => {
 };
 
 exports.createBanner = async (req, res) => {
-    const { imageUrl, link, altText } = req.body;
-    if (!imageUrl) {
-        return res.status(400).send("画像URLは必須です");
+    const { imageUrl, href } = req.body;
+
+    if (!imageUrl || !href) {
+        console.log(req.body)
+        return res.status(400).send("imageUrl と href は必須です");
     }
 
     try {
-        const result = await bannerService.createBanner({ imageUrl, link, altText });
+        const result = await bannerService.createBanner({ imageUrl, href });
         res.send({ result });
     } catch (err) {
         console.error(err);
