@@ -1,8 +1,8 @@
 // features/product/productModel.js
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define("Product", {
+    const Product = sequelize.define("Product", {
         name: {
-            type: DataTypes.STRING(20),
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
         price: {
@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         seller: {
-            type: DataTypes.STRING(30),
+            type: DataTypes.STRING(50),
             allowNull: false,
         },
         description: {
-            type: DataTypes.STRING(300),
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         imageUrl: {
@@ -26,5 +26,47 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: 0,
         },
+        category_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'Categories',
+                key: 'id'
+            }
+        },
+        sub_category_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'Categories',
+                key: 'id'
+            }
+        },
+        download_count: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+        },
+        view_count: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+        },
+        rating_average: {
+            type: DataTypes.DECIMAL(3, 2),
+            allowNull: true,
+            defaultValue: 0,
+        },
+        rating_count: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+        },
+        tech_stack: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
     });
+    
+    return Product;
 };
