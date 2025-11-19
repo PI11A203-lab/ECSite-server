@@ -138,8 +138,7 @@ exports.findProductById = async (id) => {
         `SELECT 
             p.*,
             c.name_ja as category_name,
-            sc.name as subcategory_name,
-            sc.tech_stack as tech_stack
+            sc.name as subcategory_name
          FROM Products p
          LEFT JOIN Categories c ON p.category_id = c.id
          LEFT JOIN Categories sc ON p.sub_category_id = sc.id
@@ -198,8 +197,7 @@ exports.findProductById = async (id) => {
         product: {
             ...product,
             category_name: product.category_name || null,
-            subcategory_name: product.subcategory_name || null,
-            tech_stack: product.tech_stack || null
+            subcategory_name: product.subcategory_name || null
         },
         stats: stats ? stats.toJSON() : null,
         tags: tags || [],
